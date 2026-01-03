@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: Customer dimension table with one row per customer
+    columns:
+      - name: customer_id
+        description: Unique identifier for customer
+        tests:
+          - unique
+          - not_null
+      - name: customer_unique_id
+        description: Unique customer identifier across system
+      - name: city
+        description: Customer city (lowercase)
+      - name: state
+        description: Customer state (uppercase)
+
+  - name: dim_products
+    description: Product dimension table with one row per product
+    columns:
+      - name: product_id
+        description: Unique identifier for product
+        tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: Product category name (Portuguese)
+      - name: volume_cm3
+        description: Product volume in cubic centimeters
+
+  - name: dim_sellers
+    description: Seller dimension table with one row per seller
+    columns:
+      - name: seller_id
+        description: Unique identifier for seller
+        tests:
+          - unique
+          - not_null
+      - name: city
+        description: Seller city (lowercase)
+      - name: state
+        description: Seller state (uppercase)
+
+  - name: fact_orders
+    description: Order-level fact table with aggregated metrics
+    columns:
+      - name: order_id
+        description: Unique identifier for order
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key to customer dimension
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: order_status
+        description: Current status of the order
+      - name: total_order_value
+        description: Total value including price and freight
+      - name: delivery_performance
+        description: Whether order was delivered early, on time, or late
+      - name: purchase_date
+        description: Date of purchase (without time)
+
+  - name: fact_order_items
+    description: Line item-level fact table with most granular detail
+    columns:
+      - name: order_id
+        description: Foreign key to order
+        tests:
+          - not_null
+      - name: order_item_id
+        description: Line item number within order
+        tests:
+          - not_null
+      - name: customer_id
+        description: Foreign key to customer dimension
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: product_id
+        description: Foreign key to product dimension
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: seller_id
+        description: Foreign key to seller dimension
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_sellers')
+                field: seller_id
+      - name: total_item_value
+        description: Total value of this line item (price + freight)
+
+
+

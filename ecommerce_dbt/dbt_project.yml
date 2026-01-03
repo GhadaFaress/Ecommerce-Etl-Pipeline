@@ -1,0 +1,49 @@
+# dbt Project Configuration for E-commerce Pipeline
+
+name: 'ecommerce_dbt'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'ecommerce_dbt'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Model configurations
+models:
+  ecommerce_dbt:
+    # Staging models - materialize as views (fast, no storage)
+    staging:
+      +materialized: view
+      +schema: staging
+      
+    # Intermediate models - materialize as views
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+      
+    # Marts (final models) - materialize as tables (fast queries)
+    marts:
+      +materialized: table
+      +schema: analytics
+
+# Test severity levels
+tests:
+  ecommerce_dbt:
+    +severity: warn  # Don't fail builds on test failures, just warn
+
+# Seeds configuration (for small reference data)
+seeds:
+  ecommerce_dbt:
+    +schema: seeds

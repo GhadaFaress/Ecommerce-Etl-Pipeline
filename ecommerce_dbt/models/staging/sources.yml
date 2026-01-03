@@ -1,0 +1,93 @@
+# Source table definitions
+# These reference the raw tables loaded from CSV files
+
+version: 2
+
+sources:
+  - name: raw
+    description: Raw e-commerce data from Olist dataset loaded via Python ETL
+    database: ECOMMERCE_DB
+    schema: RAW
+    
+    tables:
+      - name: CUSTOMERS  # Uppercase to match Snowflake
+        description: Customer information including location
+        columns:
+          - name: customer_id
+            description: Unique identifier for customer
+            tests:
+              - unique
+              - not_null
+      
+      - name: ORDERS  # Uppercase
+        description: Order information and status
+        columns:
+          - name: ORDER_ID
+            description: Unique identifier for order
+            tests:
+              - unique
+              - not_null
+          - name: CUSTOMER_ID
+            description: Reference to customer
+            tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('raw', 'CUSTOMERS')
+                    field: CUSTOMER_ID
+      
+      - name: ORDER_ITEMS  # Uppercase
+        description: Line items for each order
+        columns:
+          - name: ORDER_ID
+            description: Reference to order
+            tests:
+              - not_null
+          - name: PRODUCT_ID
+            description: Reference to product
+            tests:
+              - not_null
+          - name: SELLER_ID
+            description: Reference to seller
+            tests:
+              - not_null
+      
+      - name: PRODUCTS  # Uppercase
+        description: Product catalog with categories and dimensions
+        columns:
+          - name: PRODUCT_ID
+            description: Unique identifier for product
+            tests:
+              - unique
+              - not_null
+      
+      - name: SELLERS  # Uppercase
+        description: Seller information and location
+        columns:
+          - name: SELLER_ID
+            description: Unique identifier for seller
+            tests:
+              - unique
+              - not_null
+      
+      - name: PAYMENTS  # Uppercase - matches actual table name
+        description: Payment information for orders
+        columns:
+          - name: ORDER_ID
+            description: Reference to order
+            tests:
+              - not_null
+      
+      - name: REVIEWS  # Uppercase - matches actual table name
+        description: Customer reviews and ratings
+        columns:
+          - name: REVIEW_ID
+            description: Unique identifier for review
+            tests:
+              - unique
+              - not_null
+          - name: ORDER_ID
+            description: Reference to order
+            tests:
+              - not_null
+
