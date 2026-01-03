@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)](https://www.python.org/)  
 [![License](https://img.shields.io/badge/License-MIT-green)](#)
 
-An **end-to-end E-Commerce ETL pipeline** that extracts, transforms, and loads data into a **PostgreSQL data warehouse** using a **star schema**. Includes analytical queries and visualizations.
+An **end-to-end E-Commerce ETL pipeline** that extracts, transforms, and loads data into a **PostgreSQL data warehouse** using a **star schema**. Includes analytical queries and visualizations.and **dbt transformations for modeling and testing.**
 
 ---
 
@@ -51,7 +51,8 @@ ecommerce-etl/
 
 - Python 3.x  
 - Pandas, Matplotlib, Seaborn  
-- PostgreSQL  
+- PostgreSQL
+- dbt (staging + marts + tests)
 - SQL (Star Schema / Analytical Queries)  
 - Git & GitHub  
 
@@ -78,6 +79,12 @@ python scripts/extract.py
 python scripts/transform.py
 python scripts/load_orders.py
 python scripts/visualizations.py
+```
+3.Run dbt transformations :
+```bash
+cd dbt/ecommerce_dbt
+dbt run
+dbt test
 ```
 
 ## 📌 Author
