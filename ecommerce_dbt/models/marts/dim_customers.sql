@@ -27,3 +27,4 @@ from {{ ref('stg_customers') }}
 
 
 
+

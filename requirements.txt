@@ -1,6 +1,25 @@
-pandas==2.1.4
-snowflake-connector-python==3.6.0
-python-dotenv==1.0.0
-pyarrow==14.0.2
-matplotlib
-seaborn
+# E-commerce ETL Pipeline Dependencies
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Database Connectivity
+sqlalchemy>=2.0.0
+snowflake-connector-python>=3.0.0
+snowflake-sqlalchemy>=1.5.0
+
+# dbt
+dbt-core>=1.7.0
+dbt-snowflake>=1.7.0
+
+# Environment Management
+python-dotenv>=1.0.0
+
+# Data Validation
+great-expectations>=0.18.0  # Optional: for advanced data quality
+
+# Visualization (Optional)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
