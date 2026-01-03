@@ -11,11 +11,11 @@ An **end-to-end E-Commerce ETL pipeline** that extracts, transforms, and loads d
 
 This project simulates a **real-world e-commerce ETL pipeline**:
 
-1. **Extract**: Load raw data from CSV / external sources  
-2. **Transform**: Clean, aggregate, and prepare data using Python (Pandas)  
-3. **Load**: Insert data into PostgreSQL **fact** and **dimension** tables  
-4. **Analytics**: Generate business insights and visualizations  
-5. **Schema**: Star schema design for easy querying  
+1. **Extract**: Load raw e-commerce data using Python
+2. **Load**: Store raw data in PostgreSQL
+3. **Transform**: Use **dbt + Snowflake** to build analytics-ready models
+4. **Modeling**: Star schema (fact & dimension tables)
+5. **Analytics**: Business insights & visualizations 
 
 ---
 
@@ -24,17 +24,26 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 ![Star Schema Diagram](./images/star_schema.png)  
 
 ---
+## 🏗️ Data Architecture
+
+- **PostgreSQL**: Raw data storage
+- **Snowflake**: Analytics data warehouse
+- **dbt**: SQL-based transformations & data modeling
+- **Python**: Extraction, loading, and analysis
 
 ## 🗂️ Project Structure
 ```
 ecommerce-etl/
-├── data/ # Raw & processed data (not in repo)
-├── scripts/ # Python ETL scripts
-├── sql/ # SQL scripts for tables and queries
-├── notebooks/ # Optional Jupyter notebooks
-├── .gitignore
-├── README.md
+├── data/                 # Raw data (excluded)
+├── scripts/              # Python extract & load scripts
+├── sql/                  # DDL / helper queries
+├── dbt/
+│   └── ecommerce_dbt/    # dbt project 
+├── notebooks/
 ├── requirements.txt
+├── .gitignore
+└── README.md
+
 ```
 ---
 
