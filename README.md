@@ -21,7 +21,7 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 
 ## 🧱 Architecture Diagram
 
-![Star Schema Diagram](./images/star_schema.png)  
+<img width="2782" height="2656" alt="schema" src="https://github.com/user-attachments/assets/c1d9043a-7692-4b48-9a2f-278b2994f49e" />
 
 ---
 ## 🏗️ Data Architecture
