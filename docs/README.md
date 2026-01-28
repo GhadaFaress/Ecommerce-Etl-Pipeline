@@ -29,30 +29,6 @@ Shows:
 
 ---
 
-### 3. [ERD Diagram](./erd_diagram.md)
-**Overview**: Complete entity-relationship diagram across all layers
-
-Shows:
-- **Raw Layer**: 7 source tables from CSV
-- **Staging Layer**: 5 transformed staging models
-- **Analytics Layer**: Star schema (3 dims + 2 facts)
-- All relationships and cardinality
-- Complete data lineage
-
-**Use this to**: See the complete data transformation journey
-
----
-
-## 🎯 Quick Reference
-
-| Diagram | Purpose | Best For |
-|---------|---------|----------|
-| **Architecture** | System overview | Understanding tech stack & data flow |
-| **Star Schema** | Analytics data model | Writing queries, BI tools |
-| **ERD** | Complete data lineage | Understanding transformations |
-
----
-
 ## 🖼️ How to View
 
 These diagrams use **Mermaid** syntax, which renders automatically on:
@@ -62,24 +38,6 @@ These diagrams use **Mermaid** syntax, which renders automatically on:
 - ✅ Notion
 - ✅ Obsidian
 
-Just open the `.md` files and the diagrams will display beautifully!
-
+ open the `.md` files and the diagrams will display 
+ 
 ---
-
-## 📝 Diagram Updates
-
-When updating the data model:
-1. Update the relevant SQL models in `ecommerce_dbt/models/`
-2. Update the corresponding diagram in this folder
-3. Run dbt tests to ensure integrity
-4. Commit both code and diagram changes together
-
----
-
-## 🔗 Related Files
-
-- **dbt Models**: `../ecommerce_dbt/models/`
-- **Python Scripts**: `../scripts/`
-- **SQL Queries**: `../sql/`
-- **Main README**: `../README.md`
-
