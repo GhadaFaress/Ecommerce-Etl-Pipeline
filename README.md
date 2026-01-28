@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)](https://www.python.org/)  
 [![License](https://img.shields.io/badge/License-MIT-green)](#)
 
-An **end-to-end E-Commerce ETL pipeline** that extracts, transforms, and loads data into a **PostgreSQL data warehouse** using a **star schema**. Includes analytical queries and visualizations.and **dbt transformations for modeling and testing.**
+An **end-to-end E-Commerce ETL pipeline** that extracts, transforms, and loads data into a **PostgreSQL data warehouse** using a **star schema**. Includes analytical queries and visualizations.
 
 ---
 
@@ -19,9 +19,13 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 
 ---
 
-## 🧱 Architecture Diagram
+## 🧱 Architecture & Data Models
 
-<img width="2782" height="2656" alt="schema" src="https://github.com/user-attachments/assets/c1d9043a-7692-4b48-9a2f-278b2994f49e" />
+📐 **[View All Diagrams](./docs/)** - Complete documentation with interactive diagrams
+
+- **[Architecture Flow](./docs/architecture_diagram.md)** - Full ETL pipeline from CSV to Analytics
+- **[Star Schema](./docs/star_schema_diagram.md)** - Dimensional model with fact & dimension tables  
+- **[ERD Diagram](./docs/erd_diagram.md)** - Complete data lineage across all layers
 
 ---
 ## 🏗️ Data Architecture
@@ -34,27 +38,34 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 ## 🗂️ Project Structure
 ```
 ecommerce-etl/
-├── data/                 # Raw data (excluded)
-├── scripts/              # Python extract & load scripts
-├── sql/                  # DDL / helper queries
-├── dbt/
-│   └── ecommerce_dbt/    # dbt project 
-├── notebooks/
-├── requirements.txt
+├── data/                    # Raw CSV data (gitignored)
+├── docs/                    # 📐 Architecture & ERD diagrams
+├── ecommerce_dbt/           # dbt project (transformations)
+│   ├── models/
+│   │   ├── staging/         # Staging models (data cleansing)
+│   │   └── marts/           # Analytics models (star schema)
+│   ├── tests/               # dbt data quality tests
+│   └── dbt_project.yml
+├── scripts/                 # Python ETL scripts
+│   ├── extract.py           # Extract data from CSV
+│   ├── load_raw.py          # Load to PostgreSQL
+│   ├── transform.py         # Data transformations
+│   └── visualizations.py    # Generate charts
+├── sql/                     # Analytical SQL queries
+├── requirements.txt         # Python dependencies
 ├── .gitignore
 └── README.md
-
 ```
 ---
 
 ## 🛠️ Tech Stack
 
-- Python 3.x  
-- Pandas, Matplotlib, Seaborn  
-- PostgreSQL
-- dbt (staging + marts + tests)
-- SQL (Star Schema / Analytical Queries)  
-- Git & GitHub  
+- **Languages**: Python 3.x, SQL
+- **Databases**: PostgreSQL (staging), Snowflake (analytics)
+- **Data Modeling**: dbt (data build tool)
+- **ETL**: Pandas, SQLAlchemy
+- **Visualization**: Matplotlib, Seaborn
+- **Version Control**: Git & GitHub  
 
 ---
 
@@ -79,12 +90,6 @@ python scripts/extract.py
 python scripts/transform.py
 python scripts/load_orders.py
 python scripts/visualizations.py
-```
-3.Run dbt transformations :
-```bash
-cd dbt/ecommerce_dbt
-dbt run
-dbt test
 ```
 
 ## 📌 Author

@@ -1,8 +1,7 @@
 /*
 Seller Dimension
 - One row per seller
-- Includes location information
-- Ready for seller analytics
+- Latest snapshot per seller_id
 */
 
 {{ config(
@@ -10,20 +9,30 @@ Seller Dimension
     schema='analytics'
 ) }}
 
+with ranked_sellers as (
+
+    select
+        seller_id,
+
+        -- Location attributes
+        zip_code,
+        city,
+        state,
+
+        row_number() over (
+            partition by seller_id
+            order by seller_id
+        ) as rn
+
+    from {{ ref('stg_sellers') }}
+
+)
+
 select
-    -- Primary key
     seller_id,
-    
-    -- Location attributes
     zip_code,
     city,
-    state,
-    
-    -- Metadata
-    current_timestamp() as last_updated_at
+    state
 
-from {{ ref('stg_sellers') }}
-
-
-
-
+from ranked_sellers
+where rn = 1

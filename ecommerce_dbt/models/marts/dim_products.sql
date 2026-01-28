@@ -1,8 +1,7 @@
 /*
 Product Dimension
 - One row per product
-- Includes category and physical dimensions
-- Ready for product analytics
+- Latest snapshot per product_id
 */
 
 {{ config(
@@ -10,28 +9,45 @@ Product Dimension
     schema='analytics'
 ) }}
 
+with ranked_products as (
+
+    select
+        product_id,
+
+        -- Product attributes
+        category_name,
+        name_length,
+        description_length,
+        photos_count,
+
+        -- Physical dimensions
+        weight_grams,
+        length_cm,
+        height_cm,
+        width_cm,
+        volume_cm3,
+
+        -- Deduplication logic
+        row_number() over (
+            partition by product_id
+            order by product_id
+        ) as rn
+
+    from {{ ref('stg_products') }}
+
+)
+
 select
-    -- Primary key
     product_id,
-    
-    -- Product attributes
     category_name,
     name_length,
     description_length,
     photos_count,
-    
-    -- Physical dimensions
     weight_grams,
     length_cm,
     height_cm,
     width_cm,
-    volume_cm3,
-    
-    -- Metadata
-    current_timestamp() as last_updated_at
+    volume_cm3
 
-from {{ ref('stg_products') }}
-
-
-
-
+from ranked_products
+where rn = 1

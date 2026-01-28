@@ -2,30 +2,28 @@ version: 2
 
 models:
   - name: dim_customers
-    description: Customer dimension table with one row per customer
+    description: Customer dimension table with one row per real customer
     columns:
-      - name: customer_id
-        description: Unique identifier for customer
+      - name: customer_unique_id
+        description: Primary key for customers
         tests:
           - unique
           - not_null
-      - name: customer_unique_id
-        description: Unique customer identifier across system
       - name: city
-        description: Customer city (lowercase)
+        description: Customer city
       - name: state
-        description: Customer state (uppercase)
+        description: Customer state
 
   - name: dim_products
     description: Product dimension table with one row per product
     columns:
       - name: product_id
-        description: Unique identifier for product
+        description: Primary key for product
         tests:
           - unique
           - not_null
       - name: category_name
-        description: Product category name (Portuguese)
+        description: Product category
       - name: volume_cm3
         description: Product volume in cubic centimeters
 
@@ -33,78 +31,81 @@ models:
     description: Seller dimension table with one row per seller
     columns:
       - name: seller_id
-        description: Unique identifier for seller
+        description: Primary key for seller
         tests:
           - unique
           - not_null
       - name: city
-        description: Seller city (lowercase)
+        description: Seller city
       - name: state
-        description: Seller state (uppercase)
+        description: Seller state
 
   - name: fact_orders
-    description: Order-level fact table with aggregated metrics
+    description: Order-level fact table (one row per order)
     columns:
       - name: order_id
-        description: Unique identifier for order
+        description: Primary key for order
         tests:
           - unique
           - not_null
-      - name: customer_id
-        description: Foreign key to customer dimension
+
+      - name: customer_unique_id
+        description: Foreign key to dim_customers
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_customers')
-                field: customer_id
+                field: customer_unique_id
+
       - name: order_status
-        description: Current status of the order
+        description: Current order status
       - name: total_order_value
-        description: Total value including price and freight
+        description: Total order value including freight
       - name: delivery_performance
-        description: Whether order was delivered early, on time, or late
+        description: Delivery timing classification
       - name: purchase_date
-        description: Date of purchase (without time)
+        description: Order purchase date
 
   - name: fact_order_items
-    description: Line item-level fact table with most granular detail
+    description: Line-item-level fact table (most granular)
     columns:
       - name: order_id
-        description: Foreign key to order
+        description: Foreign key to fact_orders
         tests:
           - not_null
+
       - name: order_item_id
         description: Line item number within order
         tests:
           - not_null
-      - name: customer_id
-        description: Foreign key to customer dimension
+
+      - name: customer_unique_id
+        description: Foreign key to dim_customers
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_customers')
-                field: customer_id
+                field: customer_unique_id
+
       - name: product_id
-        description: Foreign key to product dimension
+        description: Foreign key to dim_products
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_products')
                 field: product_id
+
       - name: seller_id
-        description: Foreign key to seller dimension
+        description: Foreign key to dim_sellers
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_sellers')
                 field: seller_id
+
       - name: total_item_value
-        description: Total value of this line item (price + freight)
-
-
-
-
+        description: Total value of this line item
