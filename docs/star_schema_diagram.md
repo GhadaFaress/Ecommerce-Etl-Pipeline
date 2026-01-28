@@ -2,15 +2,17 @@
 
 ```mermaid
 erDiagram
-    FACT_ORDERS ||--|| DIM_CUSTOMERS : "customer_id"
-    FACT_ORDER_ITEMS ||--|| DIM_CUSTOMERS : "customer_id"
-    FACT_ORDER_ITEMS ||--|| DIM_PRODUCTS : "product_id"
-    FACT_ORDER_ITEMS ||--|| DIM_SELLERS : "seller_id"
+    FACT_ORDERS }|--|| DIM_CUSTOMERS : "customer_id"
+    FACT_ORDERS }|--|| DIM_DATE : "purchase_date"
+
     FACT_ORDER_ITEMS }|--|| FACT_ORDERS : "order_id"
+    FACT_ORDER_ITEMS }|--|| DIM_PRODUCTS : "product_id"
+    FACT_ORDER_ITEMS }|--|| DIM_SELLERS : "seller_id"
+    FACT_ORDER_ITEMS }|--|| DIM_DATE : "purchase_date"
 
     DIM_CUSTOMERS {
-        string customer_id PK
-        string customer_unique_id
+        string customer_unique_id PK
+        string customer_id 
         string zip_code
         string city
         string state
@@ -36,9 +38,21 @@ erDiagram
         string state
     }
 
+    DIM_DATE {
+        date date_key PK
+        int year
+        int quarter
+        int month
+        int week
+        int day
+        string day_name
+        boolean is_weekend
+    }
+
     FACT_ORDERS {
         string order_id PK
         string customer_id FK
+        date purchase_date FK
         string order_status
         timestamp purchase_timestamp
         timestamp delivered_customer_date
@@ -50,26 +64,21 @@ erDiagram
         decimal total_price
         decimal total_freight
         decimal total_order_value
-        date purchase_date
-        int purchase_year
-        int purchase_month
     }
 
     FACT_ORDER_ITEMS {
         string order_id PK_FK
         int order_item_id PK
-        string customer_id FK
         string product_id FK
         string seller_id FK
-        string order_status
-        timestamp purchase_timestamp
-        date purchase_date
+        date purchase_date FK
         decimal price
         decimal freight_value
         decimal total_item_value
         float price_percent_of_total
         float freight_percent_of_total
     }
+
 ```
 
 ## Schema Description
