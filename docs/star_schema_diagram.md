@@ -84,11 +84,11 @@ erDiagram
 
 ## Schema Description
 
-### Dimension Tables (3)
-- **DIM_CUSTOMERS**: Customer master data with location
-- **DIM_PRODUCTS**: Product catalog with categories and dimensions
-- **DIM_SELLERS**: Seller information with location
-
+### Dimension Tables (4)
+- **DIM_CUSTOMERS**: Customer master data with geographic attributes.
+- **DIM_PRODUCTS**: Product catalog enriched with physical attributes and category.
+- **DIM_SELLERS**: Seller master data with location details.
+- **DIM_DATE**: Centralized calendar table enabling: Time-based analysis, Efficient filtering, Consistent date logic across BI tools
 ### Fact Tables (2)
 - **FACT_ORDERS**: Aggregated order-level metrics
 - **FACT_ORDER_ITEMS**: Granular line-item level transactions
@@ -97,4 +97,7 @@ erDiagram
 - One customer can have many orders
 - One order can have many order items
 - Each order item links to one product and one seller
-
+- One product can have many order items
+- One seller can have many order items
+- One date can have many orders / order items
+  
