@@ -21,11 +21,8 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 
 ## 🧱 Architecture & Data Models
 
-📐 **[View All Diagrams](./docs/)** - Complete documentation with interactive diagrams
-
 - **[Architecture Flow](./docs/architecture_diagram.md)** - Full ETL pipeline from CSV to Analytics
 - **[Star Schema](./docs/star_schema_diagram.md)** - Dimensional model with fact & dimension tables  
-- **[ERD Diagram](./docs/erd_diagram.md)** - Complete data lineage across all layers
 
 ---
 ## 🏗️ Data Architecture
