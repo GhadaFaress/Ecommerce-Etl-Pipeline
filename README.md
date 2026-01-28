@@ -37,34 +37,45 @@ This project simulates a **real-world e-commerce ETL pipeline**:
 
 ## 🗂️ Project Structure
 ```
-ecommerce-etl/
-├── data/                   
-├── docs/                    
-├── ecommerce_dbt/          
+Ecommerce-Etl-Pipeline/
+│
+├── ecommerce_dbt/
 │   ├── models/
-│   │   ├── staging/         
-│   │   └── marts/          
-│   ├── tests/              
+│   │   ├── staging/
+│   │   └── marts/
+│   ├── tests/
 │   └── dbt_project.yml
-├── scripts/               
-│   ├── extract.py         
-│   ├── load_raw.py         
-│   ├── transform.py         
-│   └── visualizations.py    
-├── sql/                     
-├── requirements.txt         
+│
+├── scripts/
+│   ├── extract.py
+│   ├── load_raw.py
+│   └── test_snowflake_connection.py
+│
+├── sql/
+│   └── create_tables.sql
+│
+├── docs/
+│   ├── architecture_diagram.md
+│   ├── star_schema_diagram.md
+│   └── erd_diagram.md
+│
+├── powerbi/
+│   ├── PBIX_files/
+│   └── Dashboard_Screenshots
+│
+├── requirements.txt
 ├── .gitignore
 └── README.md
+
 ```
 ---
 
 ## 🛠️ Tech Stack
 
-- **Languages**: Python 3.x, SQL
-- **Databases**: PostgreSQL (staging), Snowflake (analytics)
-- **Data Modeling**: dbt (data build tool)
-- **ETL**: Pandas, SQLAlchemy
-- **Visualization**: Matplotlib, Seaborn
+- **Languages**: Python , SQL
+- **Databases**: Snowflake 
+- **Transformations**: dbt
+- **BI & Visualization:**: Power BI
 - **Version Control**: Git & GitHub  
 
 ---
@@ -111,12 +122,15 @@ pip install -r requirements.txt
 python scripts/extract.py
 python scripts/transform.py
 python scripts/load_orders.py
-python scripts/visualizations.py
 ```
-
+3. Run dbt:
+```bash
+dbt run
+dbt test
+```
 ## 📌 Author
 
 **Ghada Fares**  
-Data Engineering & Data Science Enthusiast  
+Data Engineering & Analytics Engineering Enthusiast  
 
 [GitHub](https://github.com/GhadaFaress) | [LinkedIn](https://www.linkedin.com/in/ghada-fares-b78bb3249)
