@@ -2,24 +2,24 @@
 
 ```mermaid
 erDiagram
-    FACT_ORDERS }|--|| DIM_CUSTOMERS : "customer_id"
-    FACT_ORDERS }|--|| DIM_DATE : "purchase_date"
+    FACT_ORDERS }|--|| DIM_CUSTOMERS : customer_id
+    FACT_ORDERS }|--|| DIM_DATE : purchase_date
 
-    FACT_ORDER_ITEMS }|--|| FACT_ORDERS : "order_id"
-    FACT_ORDER_ITEMS }|--|| DIM_PRODUCTS : "product_id"
-    FACT_ORDER_ITEMS }|--|| DIM_SELLERS : "seller_id"
-    FACT_ORDER_ITEMS }|--|| DIM_DATE : "purchase_date"
+    FACT_ORDER_ITEMS }|--|| FACT_ORDERS : order_id
+    FACT_ORDER_ITEMS }|--|| DIM_PRODUCTS : product_id
+    FACT_ORDER_ITEMS }|--|| DIM_SELLERS : seller_id
+    FACT_ORDER_ITEMS }|--|| DIM_DATE : purchase_date
 
     DIM_CUSTOMERS {
-        string customer_unique_id PK
-        string customer_id 
+        string customer_id
+        string customer_unique_id
         string zip_code
         string city
         string state
     }
 
     DIM_PRODUCTS {
-        string product_id PK
+        string product_id
         string category_name
         int name_length
         int description_length
@@ -32,14 +32,14 @@ erDiagram
     }
 
     DIM_SELLERS {
-        string seller_id PK
+        string seller_id
         string zip_code
         string city
         string state
     }
 
     DIM_DATE {
-        date date_key PK
+        date date_key
         int year
         int quarter
         int month
@@ -50,9 +50,9 @@ erDiagram
     }
 
     FACT_ORDERS {
-        string order_id PK
-        string customer_id FK
-        date purchase_date FK
+        string order_id
+        string customer_id
+        date purchase_date
         string order_status
         timestamp purchase_timestamp
         timestamp delivered_customer_date
@@ -67,17 +67,18 @@ erDiagram
     }
 
     FACT_ORDER_ITEMS {
-        string order_id PK_FK
-        int order_item_id PK
-        string product_id FK
-        string seller_id FK
-        date purchase_date FK
+        string order_id
+        int order_item_id
+        string product_id
+        string seller_id
+        date purchase_date
         decimal price
         decimal freight_value
         decimal total_item_value
         float price_percent_of_total
         float freight_percent_of_total
     }
+
 
 ```
 
